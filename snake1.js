@@ -43,32 +43,32 @@ function collision(head,snake){
 }
 
 function coll_maze1(head){
-	for(var i=4;i<20;i++){
-		if(head.x == (maze*i) && head.y == (box*4))
+	for(var i=1;i<7;i++){
+		if( (head.x == (box*i)) && (head.y == (box*4)) )
 			return true;
 	}
 	return false;
 }
 
 function coll_maze2(head){
-	for(var i=60;i<75;i++){
-		if(head.x == (maze*i) && head.y == (box*15))
+	for(var i=18;i<24;i++){
+		if(head.x == (box*i) && head.y == (box*15))
 			return true;
 	}
 	return false;
 }
 
 function coll_maze3(head){
-	for(var i=30;i<45;i++){
-		if(head.x == (box*6) && head.y == (maze*i))
+	for(var i=9;i<16;i++){
+		if(head.x == (box*6) && head.y == (box*i))
 			return true;
 	}
 	return false;
 }
 
 function coll_maze4(head){
-	for(var i=4;i<20;i++){
-		if(head.x == (box*15) && head.y == (maze*i))
+	for(var i=1;i<7;i++){
+		if(head.x == (box*15) && head.y == (box*i))
 			return true;
 	}
 	return false;
@@ -77,17 +77,17 @@ function coll_maze4(head){
 function draw(){
 	ctx.drawImage(ground,0,0);
 	
-	for(var i=4;i<20;i++)
-		ctx.fillRect(maze*i,box*4,maze,maze);
+	for(var i=1;i<7;i++)
+		ctx.fillRect(box*i,box*4,box,box);
 
-	for(var i=60;i<75;i++)
-		ctx.fillRect(maze*i,box*15,maze,maze);
+	for(var i=18;i<24;i++)
+		ctx.fillRect(box*i,box*15,box,box);
 
-	for(var i=30;i<45;i++)
-		ctx.fillRect(box*6,maze*i,maze,maze);
+	for(var i=9;i<16;i++)
+		ctx.fillRect(box*6,box*i,box,box);
 
-	for(var i=4;i<20;i++)
-		ctx.fillRect(box*15,maze*i,maze,maze);
+	for(var i=1;i<7;i++)
+		ctx.fillRect(box*15,box*i,box,box);
 
 	for(var i=0;i<snake.length;i++){
 		ctx.fillStyle=(i==0)?"green":"red";
@@ -120,13 +120,13 @@ function draw(){
 	}
 
 	var flag=1;
-	if(snakeX < 0*box || snakeX > 24*box || snakeY < 0*box || snakeY > 18*box || collision(newHead,snake) || coll_maze1(newHead) || coll_maze2(newHead) || coll_maze3(newHead) || coll_maze4(newHead) ){
+	if(snakeX < 1*box || snakeX > 23*box || snakeY < 1*box || snakeY > 17*box || collision(newHead,snake) || coll_maze1(newHead) || coll_maze2(newHead) || coll_maze3(newHead) || coll_maze4(newHead) ){
 		flag=0;
 		
 		
 	}
 	if(flag==0){
-		alert("GAME OVER");
+		
 		clearInterval(game);
 	}
 	
@@ -137,32 +137,31 @@ function draw(){
 	ctx.font="45px Georgia one";
 	ctx.fillText(score,1*box,1*box); 
 }
-var delay;
-	delay=210;
-var game=setInterval(draw,delay);
+const delay=210;
+//var game=setInterval(draw,delay);
 
 var fast=document.getElementById("fast");
 var medium=document.getElementById("medium");
 var slow=document.getElementById("slow");
 
 fast.onclick=function(){
-	delay-=110;
+	const fast=delay/3;
 	console.log(delay);
-	game=setInterval(draw,delay);
-	console.log(delay);
+	game=setInterval(draw,fast);
+	console.log(fast);
 }
 
 medium.onclick=function(){
-	delay-=60;
+	const med=delay/1.5;
 	console.log(delay);
-	game=setInterval(draw,delay);
-	console.log(delay);
+	game=setInterval(draw,med);
+	console.log(med);
 }
 
 slow.onclick=function(){
-	delay-=10;
-	console.log(delay);
-	game=setInterval(draw,delay);
+	const slow=delay/1;
+	console.log(slow);
+	game=setInterval(draw,slow);
 	console.log(delay);
 }
 
